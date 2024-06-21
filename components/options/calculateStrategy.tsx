@@ -1,9 +1,22 @@
-import { OptionsT } from "@/constants/optionstype";
+import { optionsContractT } from "@/constants/optionsStrategy";
 
-export function calculateStrategy(options: OptionsT[]) {
-  const maxProfit = 1000;
-  const maxLoss = -500;
-  const breakEvenPoints = [50, 100];
+export const calculateRiskReward = (optionsContracts : optionsContractT[]) => {
+  let data = [];
 
-  return { maxProfit, maxLoss, breakEvenPoints };
-}
+  // Generate data points for underlying price range
+  for (let price = 50; price <= 150; price += 5) {
+    let profit = 0;
+
+    optionsContracts.forEach(contract => {
+      if (contract.type === 'call') {
+        profit += Math.max(0, price - contract.strikePrice) * contract?.quantity - contract.premium * contract?.quantity;
+      } else {
+        profit += Math.max(0, contract.strikePrice - price) * contract?.quantity - contract.premium * contract?.quantity;
+      }
+    });
+
+    data.push({ price, profit });
+  }
+
+  return data;
+};

@@ -1,12 +1,11 @@
 import React from 'react';
 import { Svg, Line } from 'react-native-svg';
 import { ThemedView } from '../ThemedView';
-// import { OptionsT } from '@/constants/optionstype';
-// import { calculateStrategy } from './calculateStrategy';
-import { calculateStrategy, OptionsT } from '@/constants/optionsStrategy';
+
+import { Calculated_Price_And_Profit } from "@/constants/optionstype";
 
 type OptionsStrategyGraphProps = {
-  options: OptionsT[];
+  options: Calculated_Price_And_Profit[];
 };
 
 const OptionsStrategyGraph: React.FC<OptionsStrategyGraphProps> = ({
@@ -21,18 +20,20 @@ const OptionsStrategyGraph: React.FC<OptionsStrategyGraphProps> = ({
     return i % 2 === 0 ? { x: i, y: top } : { x: i, y: bottom };
   });
 
+  console.log(options)
+
   return (
     <ThemedView>
       <Svg height='200' width='300'>
-        {data.map(
+        {options?.map(
           (point, index) =>
             index > 0 && (
               <Line
                 key={index}
-                x1={data[index - 1].x}
-                y1={200 - data[index - 1].y}
-                x2={point.x}
-                y2={200 - point.y}
+                x1={options[index - 1].price}
+                y1={200 - options[index - 1].profit}
+                x2={point.price}
+                y2={200 - point.profit}
                 stroke='blue'
                 strokeWidth='2'
               />

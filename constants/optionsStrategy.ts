@@ -1,11 +1,12 @@
-export type OptionsT = {
+export type optionsContractT = {
   type: 'call' | 'put';
   strikePrice: number;
   premium: number;
+  quantity: number;
 };
 
 export const calculateStrategy = (
-  options: OptionsT[],
+  options: optionsContractT[],
   stockPrices: number[]
 ) => {
   return stockPrices.map((price) => {

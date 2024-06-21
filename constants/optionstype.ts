@@ -3,3 +3,8 @@ export type Options_MP_ML_BEP = {
   maxLoss: number;
   breakEvenPoints: number[];
 };
+
+export type Calculated_Price_And_Profit = {
+  price: number;
+  profit: number;
+}
